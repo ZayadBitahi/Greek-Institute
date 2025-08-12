@@ -52,6 +52,6 @@ while sandwich_orders:
     finished_sandwiches.append(current_sandwich)
 print("The following sandwiches have been made:")
 for sandwich in finished_sandwiches:
-    print("I made your:" + sandwich)
+    print("I made your" + sandwich)
 
 
