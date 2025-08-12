@@ -16,6 +16,7 @@ else:
 print("Season:", season)
 
 #exercise 2
+
 #first part
 for number in range(1, 21):
     print(number)
@@ -27,12 +28,14 @@ for even_number in range(1, 21):
 
 
 #exercise 3
+
 while True:
     name = input("Enter your name: ")
     if name == "Zayad":
         break
 
 #exercise 4
+
 names = ['Samus', 'Cortana', 'V', 'Link', 'Mario', 'Cortana', 'Samus']
 
 user_name = input("Enter your name(2): ")
@@ -57,3 +60,22 @@ if num3 > greatest:
     greatest = num3
 
 print("The greatest number is:", greatest)
+
+
+#exercise 6
+
+import random
+
+while True:
+    guess = input("Guess a number between 1 and 9, or type quit to stop: ")
+
+    if guess == "quit":
+        break
+
+    guess = int(guess)
+    random_number = random.randint(1, 9)
+
+    if guess == random_number:
+        print("Winner")
+    else:
+        print("Better luck next time.")
