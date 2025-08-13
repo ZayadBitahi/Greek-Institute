@@ -116,3 +116,25 @@ def make_shirt(size="M", message="I love Python"):
 #Question 6
 def make_shirt(size, message="I love D&D"):
     print(f"The shirt size is {size} and the message on it is: '{message}'.")
+
+#exercice7
+import random
+def get_random_temp():
+    rand_temp = random.randint(-10, 40)
+    return rand_temp
+
+
+
+def main():
+     print("The temperature right now is", temp, "degrees Celesius.")
+     temp = get_random_temp()
+     if temp < 0:
+        print("Brrrr. Better grab a portal gun and find a warmer dimension!")
+     elif temp < 20:
+        print("It's a bit chilly outside.")
+     elif temp < 30:
+        print("The weather is nice and warm.")
+     else:
+        print("It's really hot outside!")
+
+main()
