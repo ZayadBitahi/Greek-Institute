@@ -119,22 +119,88 @@ def make_shirt(size, message="I love D&D"):
 
 #exercice7
 import random
-def get_random_temp():
-    rand_temp = random.randint(-10, 40)
-    return rand_temp
 
-
+def get_random_temp(season):
+    if season == "winter":
+        return random.randint(-10, 16)
+    elif season == "spring":
+        return random.randint(5, 23)
+    elif season == "summer":
+        return random.randint(20, 40)
+    elif season in ["autumn", "fall"]:
+        return random.randint(5, 20)
 
 def main():
-     print("The temperature right now is", temp, "degrees Celesius.")
-     temp = get_random_temp()
-     if temp < 0:
-        print("Brrrr. Better grab a portal gun and find a warmer dimension!")
-     elif temp < 20:
-        print("It's a bit chilly outside.")
-     elif temp < 30:
-        print("The weather is nice and warm.")
-     else:
-        print("It's really hot outside!")
+    valid_seasons = ["winter", "spring", "summer", "autumn", "fall"]
+    
+    season = input("Enter the season (winter, spring, summer, autumn/fall): ").lower()
+    while season not in valid_seasons:
+        print("Please enter a valid season.")
+        season = input("Enter the season (winter, spring, summer, autumn/fall): ").lower()
+    
+    temp = get_random_temp(season)
+    print("The temperature right now is", temp, "degrees Celsius.")
+    
+    if temp < 0:
+        print("Brrr, that's freezing! Wear some extra layers today.")
+    elif temp <= 16:
+        print("Quite chilly! Don't forget your coat.")
+    elif temp <= 23:
+        print("Mild weather — perfect for a walk.")
+    elif temp <= 32:
+        print("Warm and pleasant outside.")
+    elif temp <= 40:
+        print("It's hot outside, stay hydrated!")
 
 main()
+
+#exercice 8
+
+data = [
+    {"question": "What is Baby Yoda's real name?", "answer": "Grogu"},
+    {"question": "Where did Obi-Wan take Luke after his birth?", "answer": "Tatooine"},
+    {"question": "What year did the first Star Wars movie come out?", "answer": "1977"},
+    {"question": "Who built C-3PO?", "answer": "Anakin Skywalker"},
+    {"question": "Anakin Skywalker grew up to be who?", "answer": "Darth Vader"},
+    {"question": "What species is Chewbacca?", "answer": "Wookiee"}
+]
+
+def ask_questions():
+    correct = 0
+    incorrect = 0
+    wrong_answers = []
+
+    for item in data:
+        user_answer = input(item["question"] + " ").strip()
+        
+        if user_answer.lower() == item["answer"].lower():
+            print("Correct!")
+            correct += 1
+        else:
+            print(f"Incorrect! The correct answer was: {item['answer']}")
+            incorrect += 1
+            wrong_answers.append({"question": item["question"], "your_answer": user_answer, "correct_answer": item["answer"]})
+    
+    return correct, incorrect, wrong_answers
+
+def show_results(correct, incorrect, wrong_answers):
+    print("\nQuiz Results ")
+    print(f"Correct answers: {correct}")
+    print(f"Incorrect answers: {incorrect}")
+    
+    if correct == len(data):
+        print("Perfect score!")
+    elif correct >= len(data) // 2:
+        print("Not bad!.")
+    else:
+        print("Keep training, Padawan.")
+    
+    if wrong_answers:
+        print("\nQuestions you got wrong:")
+        for w in wrong_answers:
+            print(f"Q: {w['question']}")
+            print(f"   Your answer: {w['your_answer']}")
+            print(f"   Correct answer: {w['correct_answer']}\n")
+
+correct, incorrect, wrong_answers = ask_questions()
+show_results(correct, incorrect, wrong_answers)
