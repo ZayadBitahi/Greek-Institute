@@ -23,5 +23,8 @@ class PetDog(Dog):
                 f"{self.name} plays dead."
             ]
             print(random.choice(tricks))
-            
+        else:
+            print(f"{self.name} is not trained to do tricks yet. Train first!") 
+
+    
 
