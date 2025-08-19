@@ -2,7 +2,7 @@ from game import Game
 
 def get_user_menu_choice():
     print("\nMenu:")
-    print("(g) Play a new game")
+    print("(g) Play a new  game")
     print("(s) Show scores")
     print("(q) Quit")
     choice = input("Choose an option: ").lower()
