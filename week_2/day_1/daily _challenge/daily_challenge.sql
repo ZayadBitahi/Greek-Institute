@@ -30,3 +30,20 @@ INSERT INTO actors (first_name, last_name, age, number_oscars)
 VALUES ('Zayad', 'BITAHI', , 0);
 -- Error, becuase age value cannot be NULL
 
+
+SELECT avg(number_oscars) AS avergae_number_of_oscars
+FROM actors;
+
+SELECT DISTINCT number_oscars FROM actors;
+
+SELECT * FROM actors
+WHERE age > '01/01/1970';
+
+SELECT * FROM actors
+WHERE first_name IN ('David', 'Morgan', 'Will');
+
+
+SELECT number_oscars, COUNT(*) as actor_count
+FROM actors
+GROUP BY number_oscars
+HAVING number_oscars> 0 ;
