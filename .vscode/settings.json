@@ -29,6 +29,16 @@
             "database": "dvdrental",
             "username": "postgres",
             "password": "2939978"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "python",
+            "database": "python",
+            "username": "postgres",
+            "password": "2939978"
         }
     ]
 }
