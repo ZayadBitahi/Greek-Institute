@@ -15,17 +15,19 @@
       <h1 class="text-2xl font-bold">Hospital Management</h1>
     </div>
 
-    <nav class="flex gap-4">
-      <a href="/patients" class="hover:bg-green-600 px-3 py-2 rounded transition">Patients</a>
-      <a href="/doctor" class="hover:bg-green-600 px-3 py-2 rounded transition">Doctors</a>
-      <a href="/appointment" class="hover:bg-green-600 px-3 py-2 rounded transition">Appointments</a>
-      <a href="/billing" class="hover:bg-green-600 px-3 py-2 rounded transition">Billing</a>
-      <a href="/stats" class="hover:bg-green-600 px-3 py-2 rounded transition">Stats</a>
+    <nav class="flex items-center space-x-6">
+      <a href="/" class="hover:text-gray-200">Patients</a>
+      <a href="/doctor" class="hover:text-gray-200">Doctors</a>
+      <a href="/department" class="hover:text-gray-200">Departments</a>
+      <a href="/appointment" class="hover:text-gray-200">Appointments</a>
+      <a href="/billing" class="hover:text-gray-200">Billing</a>
+      <a href="/stats" class="hover:text-gray-200">Stats</a>
     </nav>
 
-    <a href="/patient/create" class="bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded transition">Add Patient</a>
+    <a href="/appointment/create" class="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded">Add Appointment</a>
   </div>
 </header>
+
 
 <main class="container mx-auto p-6">
   {% block content %}{% endblock %}

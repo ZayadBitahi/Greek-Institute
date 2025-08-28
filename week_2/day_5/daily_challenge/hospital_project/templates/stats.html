@@ -1,35 +1,42 @@
 {% extends "base.html" %}
-{% block title %}Stats{% endblock %}
+{% block title %}Hospital Statistics{% endblock %}
 {% block content %}
-<h2 class="text-2xl font-semibold text-gray-800 mb-6">Hospital Statistics</h2>
+<h2 class="text-3xl font-bold text-green-700 mb-8 text-center">Hospital Dashboard</h2>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-  <div class="bg-white shadow-md rounded p-6 text-center">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+  <div class="bg-white shadow-lg rounded-xl p-6 text-center">
     <div class="text-sm text-gray-500 mb-2">Patients</div>
     <div class="text-4xl font-bold text-green-700">{{ total_patients|default(0) }}</div>
   </div>
-  <div class="bg-white shadow-md rounded p-6 text-center">
+  <div class="bg-white shadow-lg rounded-xl p-6 text-center">
     <div class="text-sm text-gray-500 mb-2">Doctors</div>
     <div class="text-4xl font-bold text-green-700">{{ total_doctors|default(0) }}</div>
   </div>
-  <div class="bg-white shadow-md rounded p-6 text-center">
+  <div class="bg-white shadow-lg rounded-xl p-6 text-center">
     <div class="text-sm text-gray-500 mb-2">Departments</div>
     <div class="text-4xl font-bold text-green-700">{{ total_departments|default(0) }}</div>
   </div>
-  <div class="bg-white shadow-md rounded p-6 text-center">
+  <div class="bg-white shadow-lg rounded-xl p-6 text-center">
     <div class="text-sm text-gray-500 mb-2">Appointments</div>
     <div class="text-4xl font-bold text-green-700">{{ total_appointments|default(0) }}</div>
   </div>
 </div>
 
-<div class="bg-white shadow-md rounded p-6">
-  <canvas id="hospitalChart" height="120"></canvas>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+  <div class="bg-white shadow-lg rounded-xl p-6">
+    <h3 class="text-lg font-semibold text-gray-700 mb-4 text-center">Hospital Overview</h3>
+    <canvas id="hospitalChart" height="150"></canvas>
+  </div>
+  <div class="bg-white shadow-lg rounded-xl p-6">
+    <h3 class="text-lg font-semibold text-gray-700 mb-4 text-center">Patients vs Doctors</h3>
+    <canvas id="ratioChart" height="150"></canvas>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const ctx = document.getElementById('hospitalChart').getContext('2d');
-new Chart(ctx, {
+const hospitalCtx = document.getElementById('hospitalChart').getContext('2d');
+new Chart(hospitalCtx, {
   type: 'bar',
   data: {
     labels: ['Patients', 'Doctors', 'Departments', 'Appointments'],
@@ -41,7 +48,8 @@ new Chart(ctx, {
         {{ total_departments|default(0) }},
         {{ total_appointments|default(0) }}
       ],
-      backgroundColor: ['#16a34a','#22c55e','#86efac','#4ade80']
+      backgroundColor: ['#16a34a','#22c55e','#86efac','#4ade80'],
+      borderRadius: 8
     }]
   },
   options: {
@@ -50,6 +58,22 @@ new Chart(ctx, {
     scales: {
       y: { beginAtZero: true, ticks: { precision:0 } }
     }
+  }
+});
+
+const ratioCtx = document.getElementById('ratioChart').getContext('2d');
+new Chart(ratioCtx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Patients','Doctors'],
+    datasets: [{
+      data: [{{ total_patients|default(0) }}, {{ total_doctors|default(0) }}],
+      backgroundColor: ['#16a34a','#22c55e']
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: 'bottom' } }
   }
 });
 </script>

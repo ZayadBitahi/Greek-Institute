@@ -56,10 +56,13 @@ def get_patient(patient_id):
 
 def create_patient(first_name, last_name, date_of_birth, gender, contact_info):
     cursor.execute(
-        "INSERT INTO patients (first_name, last_name, date_of_birth, gender, contact_info) VALUES (%s, %s, %s, %s, %s)",
+        "INSERT INTO patients (first_name, last_name, date_of_birth, gender, contact_info) VALUES (%s, %s, %s, %s, %s) RETURNING id",
         (first_name, last_name, date_of_birth, gender, contact_info)
     )
+    new_id = cursor.fetchone()[0]
     conn.commit()
+    return new_id
+
 
 def update_patient(patient_id, first_name, last_name, date_of_birth, gender, contact_info):
     cursor.execute(

@@ -151,29 +151,27 @@ def appointment_list():
 @app.route('/appointment/create', methods=['GET', 'POST'])
 def appointment_create():
     if request.method == 'POST':
-        try:
+        patient_mode = request.form.get('patient_mode', 'existing')
+        if patient_mode == 'new':
+            first_name = request.form.get('new_first_name', '').strip()
+            last_name = request.form.get('new_last_name', '').strip()
+            date_of_birth = request.form.get('new_date_of_birth', '').strip()
+            gender = request.form.get('new_gender', '').strip()
+            contact_info = request.form.get('new_contact_info', '').strip()
+            patient_id = hm.create_patient(first_name, last_name, date_of_birth, gender, contact_info)
+        else:
             patient_id = int(request.form['patient_id'])
-            doctor_id = int(request.form['doctor_id'])
-        except ValueError:
-            flash('Invalid IDs')
-            return redirect('/appointment/create')
-
+        doctor_id = int(request.form['doctor_id'])
         appointment_date = request.form['appointment_date']
-        reason = request.form['reason']
-
-        if not hm.get_patient(patient_id):
-            flash('Selected patient does not exist')
-            return redirect('/appointment/create')
+        reason = request.form.get('reason', '')
         if not hm.get_doctor(doctor_id):
-            flash('Selected doctor does not exist')
             return redirect('/appointment/create')
-
         hm.create_appointment(patient_id, doctor_id, appointment_date, reason)
         return redirect('/appointment')
-
     patients = hm.get_patients()
     doctors = hm.get_doctors()
     return render_template('appointmentcreate.html', patients=patients, doctors=doctors)
+
 
 @app.route('/appointment/edit/<int:id>', methods=['GET', 'POST'])
 def appointment_edit(id):

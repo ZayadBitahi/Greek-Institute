@@ -2,45 +2,120 @@
 {% block title %}Add Appointment{% endblock %}
 {% block content %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css">
-<div class="bg-white shadow-md rounded p-6 max-w-2xl mx-auto">
+<div class="bg-white shadow-md rounded p-6 max-w-3xl mx-auto">
   <h2 class="text-2xl font-semibold text-gray-800 mb-4">Add Appointment</h2>
-  <form action="/appointment/create" method="POST" class="space-y-4">
-    <div>
-      <label class="block mb-1 text-gray-700">Patient</label>
-      <select id="patient_id" name="patient_id" class="w-full border rounded px-3 py-2" required>
-        <option value="" disabled selected>Select patient</option>
-        {% for p in patients %}
-        <option value="{{ p[0] }}">{{ p[1] }} {{ p[2] }} (ID {{ p[0] }})</option>
-        {% endfor %}
-      </select>
+  <form action="/appointment/create" method="POST" class="space-y-6">
+    <div class="space-y-2">
+      <div class="flex items-center gap-6">
+        <label class="inline-flex items-center gap-2">
+          <input type="radio" name="patient_mode" value="existing" id="mode_existing" checked>
+          <span class="text-gray-700">Select existing patient</span>
+        </label>
+        <label class="inline-flex items-center gap-2">
+          <input type="radio" name="patient_mode" value="new" id="mode_new">
+          <span class="text-gray-700">Create new patient</span>
+        </label>
+      </div>
+
+      <div id="existing_patient_block" class="mt-2">
+        <label class="block mb-1 text-gray-700">Patient</label>
+        <select id="patient_id" name="patient_id" class="w-full border rounded px-3 py-2">
+          <option value="" disabled selected>Select patient</option>
+          {% for p in patients %}
+          <option value="{{ p[0] }}">{{ p[1] }} {{ p[2] }} (ID {{ p[0] }})</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div id="new_patient_block" class="mt-2 hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block mb-1 text-gray-700">First Name</label>
+            <input type="text" id="new_first_name" name="new_first_name" class="w-full border rounded px-3 py-2">
+          </div>
+          <div>
+            <label class="block mb-1 text-gray-700">Last Name</label>
+            <input type="text" id="new_last_name" name="new_last_name" class="w-full border rounded px-3 py-2">
+          </div>
+          <div>
+            <label class="block mb-1 text-gray-700">Date of Birth</label>
+            <input type="date" id="new_date_of_birth" name="new_date_of_birth" class="w-full border rounded px-3 py-2">
+          </div>
+          <div>
+            <label class="block mb-1 text-gray-700">Gender</label>
+            <select id="new_gender" name="new_gender" class="w-full border rounded px-3 py-2">
+              <option value="">Select</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="md:col-span-2">
+            <label class="block mb-1 text-gray-700">Contact Info</label>
+            <input type="text" id="new_contact_info" name="new_contact_info" class="w-full border rounded px-3 py-2">
+          </div>
+        </div>
+      </div>
     </div>
-    <div>
-      <label class="block mb-1 text-gray-700">Doctor</label>
-      <select id="doctor_id" name="doctor_id" class="w-full border rounded px-3 py-2" required>
-        <option value="" disabled selected>Select doctor</option>
-        {% for d in doctors %}
-        <option value="{{ d[0] }}">{{ d[1] }} {{ d[2] }} — {{ d[3] }} (ID {{ d[0] }})</option>
-        {% endfor %}
-      </select>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block mb-1 text-gray-700">Doctor</label>
+        <select id="doctor_id" name="doctor_id" class="w-full border rounded px-3 py-2" required>
+          <option value="" disabled selected>Select doctor</option>
+          {% for d in doctors %}
+          <option value="{{ d[0] }}">{{ d[1] }} {{ d[2] }} — {{ d[3] }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label class="block mb-1 text-gray-700">Date & Time</label>
+        <input type="datetime-local" name="appointment_date" class="w-full border rounded px-3 py-2" required>
+      </div>
     </div>
-    <div>
-      <label class="block mb-1 text-gray-700">Appointment Date/Time</label>
-      <input type="datetime-local" name="appointment_date" class="w-full border rounded px-3 py-2" required>
-    </div>
+
     <div>
       <label class="block mb-1 text-gray-700">Reason</label>
       <input type="text" name="reason" class="w-full border rounded px-3 py-2">
     </div>
+
     <div class="flex justify-end gap-3 pt-2">
       <a href="/appointment" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500 transition">Cancel</a>
       <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">Create</button>
     </div>
   </form>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
 <script>
 new TomSelect('#patient_id',{create:false,sortField:{field:'text',direction:'asc'},placeholder:'Search patient...'});
 new TomSelect('#doctor_id',{create:false,sortField:{field:'text',direction:'asc'},placeholder:'Search doctor...'});
+const modeExisting=document.getElementById('mode_existing');
+const modeNew=document.getElementById('mode_new');
+const existingBlock=document.getElementById('existing_patient_block');
+const newBlock=document.getElementById('new_patient_block');
+const patientSelect=document.getElementById('patient_id');
+const newFirst=document.getElementById('new_first_name');
+const newLast=document.getElementById('new_last_name');
+const newDob=document.getElementById('new_date_of_birth');
+const newGender=document.getElementById('new_gender');
+const newContact=document.getElementById('new_contact_info');
+function setMode(m){
+  if(m==='existing'){
+    existingBlock.classList.remove('hidden');
+    newBlock.classList.add('hidden');
+    patientSelect.required=true;
+    newFirst.required=false; newLast.required=false; newDob.required=false; newGender.required=false;
+  }else{
+    existingBlock.classList.add('hidden');
+    newBlock.classList.remove('hidden');
+    patientSelect.required=false;
+    newFirst.required=true; newLast.required=true;
+  }
+}
+modeExisting.addEventListener('change',()=>setMode('existing'));
+modeNew.addEventListener('change',()=>setMode('new'));
+setMode('existing');
 </script>
 {% endblock %}
 
