@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Departments</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+<div class="container mx-auto">
+  <h1 class="text-3xl font-bold mb-6">Departments</h1>
+
+  <a href="/department/create" class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">Add Department</a>
+
+  <table class="min-w-full bg-white shadow-md rounded overflow-hidden">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="py-2 px-4">ID</th>
+        <th class="py-2 px-4">Name</th>
+        <th class="py-2 px-4">Location</th>
+        <th class="py-2 px-4">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for department in departments %}
+      <tr class="border-b">
+        <td class="py-2 px-4">{{ department[0] }}</td>
+        <td class="py-2 px-4">{{ department[1] }}</td>
+        <td class="py-2 px-4">{{ department[2] }}</td>
+        <td class="py-2 px-4">
+          <a href="/department/edit/{{ department[0] }}" class="bg-yellow-400 text-white px-2 py-1 rounded">Edit</a>
+          <a href="/department/delete/{{ department[0] }}" class="bg-red-500 text-white px-2 py-1 rounded">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

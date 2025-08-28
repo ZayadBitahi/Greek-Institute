@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Appointment</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+<div class="container mx-auto">
+  <h1 class="text-3xl font-bold mb-6">Add Appointment</h1>
+
+  <form action="/appointment/create" method="POST" class="bg-white p-6 rounded shadow-md space-y-4">
+    <div>
+      <label class="block mb-1">Patient ID</label>
+      <input type="number" name="patient_id" class="w-full border px-3 py-2 rounded" required>
+    </div>
+    <div>
+      <label class="block mb-1">Doctor ID</label>
+      <input type="number" name="doctor_id" class="w-full border px-3 py-2 rounded" required>
+    </div>
+    <div>
+      <label class="block mb-1">Appointment Date</label>
+      <input type="datetime-local" name="appointment_date" class="w-full border px-3 py-2 rounded" required>
+    </div>
+    <div>
+      <label class="block mb-1">Reason</label>
+      <textarea name="reason" class="w-full border px-3 py-2 rounded"></textarea>
+    </div>
+    <div>
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Create</button>
+      <a href="/appointment" class="bg-gray-400 text-white px-4 py-2 rounded">Cancel</a>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

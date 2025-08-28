@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Patient</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+<div class="container mx-auto">
+  <h1 class="text-3xl font-bold mb-6">Edit Patient</h1>
+
+  <form action="/patient/edit/{{ patient[0] }}" method="POST" class="bg-white p-6 rounded shadow-md space-y-4">
+    <div>
+      <label class="block mb-1">First Name</label>
+      <input type="text" name="first_name" class="w-full border px-3 py-2 rounded" value="{{ patient[1] }}" required>
+    </div>
+    <div>
+      <label class="block mb-1">Last Name</label>
+      <input type="text" name="last_name" class="w-full border px-3 py-2 rounded" value="{{ patient[2] }}" required>
+    </div>
+    <div>
+      <label class="block mb-1">Date of Birth</label>
+      <input type="date" name="date_of_birth" class="w-full border px-3 py-2 rounded" value="{{ patient[3] }}">
+    </div>
+    <div>
+      <label class="block mb-1">Gender</label>
+      <select name="gender" class="w-full border px-3 py-2 rounded">
+        <option value="">Select</option>
+        <option value="Male" {% if patient[4] == 'Male' %}selected{% endif %}>Male</option>
+        <option value="Female" {% if patient[4] == 'Female' %}selected{% endif %}>Female</option>
+        <option value="Other" {% if patient[4] == 'Other' %}selected{% endif %}>Other</option>
+      </select>
+    </div>
+    <div>
+      <label class="block mb-1">Contact Info</label>
+      <input type="text" name="contact_info" class="w-full border px-3 py-2 rounded" value="{{ patient[5] }}">
+    </div>
+    <div>
+      <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded">Update</button>
+      <a href="/" class="bg-gray-400 text-white px-4 py-2 rounded">Cancel</a>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

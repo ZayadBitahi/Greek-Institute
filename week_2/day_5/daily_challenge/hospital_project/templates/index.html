@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patients</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+<div class="container mx-auto">
+  <h1 class="text-3xl font-bold mb-6">Patients</h1>
+
+  <form method="GET" class="mb-4">
+    <input type="text" name="search" placeholder="Search patients..." value="{{ search }}" class="border px-3 py-2 rounded">
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Search</button>
+  </form>
+
+  <a href="/patient/create" class="bg-green-500 text-white px-4 py-2 rounded mb-4 inline-block">Add Patient</a>
+
+  <table class="min-w-full bg-white shadow-md rounded overflow-hidden">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="py-2 px-4">ID</th>
+        <th class="py-2 px-4">First Name</th>
+        <th class="py-2 px-4">Last Name</th>
+        <th class="py-2 px-4">DOB</th>
+        <th class="py-2 px-4">Gender</th>
+        <th class="py-2 px-4">Contact</th>
+        <th class="py-2 px-4">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for patient in patients %}
+      <tr class="border-b">
+        <td class="py-2 px-4">{{ patient[0] }}</td>
+        <td class="py-2 px-4">{{ patient[1] }}</td>
+        <td class="py-2 px-4">{{ patient[2] }}</td>
+        <td class="py-2 px-4">{{ patient[3] }}</td>
+        <td class="py-2 px-4">{{ patient[4] }}</td>
+        <td class="py-2 px-4">{{ patient[5] }}</td>
+        <td class="py-2 px-4">
+          <a href="/patients/edit/{{ patient[0] }}" class="bg-yellow-400 text-white px-2 py-1 rounded">Edit</a>
+          <a href="/patients/delete/{{ patient[0] }}" class="bg-red-500 text-white px-2 py-1 rounded">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="flex justify-between mt-4">
+    {% if page > 1 %}
+      <a href="?page={{ page-1 }}&search={{ search }}" class="px-3 py-1 bg-gray-300 rounded">Previous</a>
+    {% endif %}
+    {% if page < total_pages %}
+      <a href="?page={{ page+1 }}&search={{ search }}" class="px-3 py-1 bg-gray-300 rounded">Next</a>
+    {% endif %}
+  </div>
+</div>
+
+</body>
+</html>
