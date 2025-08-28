@@ -1,48 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Doctors</title>
-<script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 p-6">
-
-<div class="container mx-auto">
-  <h1 class="text-3xl font-bold mb-6">Doctors</h1>
-
-  <a href="/doctor/create" class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">Add Doctor</a>
-
-  <table class="min-w-full bg-white shadow-md rounded overflow-hidden">
-    <thead class="bg-gray-200">
-      <tr>
-        <th class="py-2 px-4">ID</th>
-        <th class="py-2 px-4">First Name</th>
-        <th class="py-2 px-4">Last Name</th>
-        <th class="py-2 px-4">Specialty</th>
-        <th class="py-2 px-4">Email</th>
-        <th class="py-2 px-4">Department ID</th>
-        <th class="py-2 px-4">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for doctor in doctors %}
-      <tr class="border-b">
-        <td class="py-2 px-4">{{ doctor[0] }}</td>
-        <td class="py-2 px-4">{{ doctor[1] }}</td>
-        <td class="py-2 px-4">{{ doctor[2] }}</td>
-        <td class="py-2 px-4">{{ doctor[3] }}</td>
-        <td class="py-2 px-4">{{ doctor[4] }}</td>
-        <td class="py-2 px-4">{{ doctor[5] }}</td>
-        <td class="py-2 px-4">
-          <a href="/doctor/edit/{{ doctor[0] }}" class="bg-yellow-400 text-white px-2 py-1 rounded">Edit</a>
-          <a href="/doctor/delete/{{ doctor[0] }}" class="bg-red-500 text-white px-2 py-1 rounded">Delete</a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+{% extends "base.html" %}
+{% block title %}Doctors{% endblock %}
+{% block content %}
+<div class="bg-white shadow-md rounded p-6 mb-6">
+  <form method="GET" action="/doctor" class="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
+    <div class="md:col-span-2">
+      <label class="block text-sm text-gray-600 mb-1">Search</label>
+      <input type="text" name="q" value="{{ q }}" placeholder="Name, specialty, email, department" class="w-full border rounded px-3 py-2">
+    </div>
+    <div>
+      <label class="block text-sm text-gray-600 mb-1">Department</label>
+      <select name="department_id" class="w-full border rounded px-3 py-2">
+        <option value="">All</option>
+        {% for dep in departments %}
+        <option value="{{ dep[0] }}" {% if selected_department and selected_department|int == dep[0] %}selected{% endif %}>{{ dep[1] }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="flex gap-2">
+      <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">Filter</button>
+      <a href="/doctor/create" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">Add Doctor</a>
+    </div>
+  </form>
 </div>
 
-</body>
-</html>
+<div class="bg-white shadow-md rounded p-6">
+  <div class="overflow-x-auto">
+    <table class="min-w-full border border-gray-300 rounded overflow-hidden">
+      <thead class="bg-green-100">
+        <tr>
+          <th class="py-2 px-4 border-b text-left">ID</th>
+          <th class="py-2 px-4 border-b text-left">First Name</th>
+          <th class="py-2 px-4 border-b text-left">Last Name</th>
+          <th class="py-2 px-4 border-b text-left">Specialty</th>
+          <th class="py-2 px-4 border-b text-left">Email</th>
+          <th class="py-2 px-4 border-b text-left">Department</th>
+          <th class="py-2 px-4 border-b text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for doctor in doctors %}
+        <tr class="border-b hover:bg-green-50">
+          <td class="py-2 px-4">{{ doctor[0] }}</td>
+          <td class="py-2 px-4">{{ doctor[1] }}</td>
+          <td class="py-2 px-4">{{ doctor[2] }}</td>
+          <td class="py-2 px-4">{{ doctor[3] }}</td>
+          <td class="py-2 px-4">{{ doctor[4] }}</td>
+          <td class="py-2 px-4">{{ doctor[5] }}</td>
+          <td class="py-2 px-4 text-center">
+            <a href="/doctor/edit/{{ doctor[0] }}" class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500 transition">Edit</a>
+            <a href="/doctor/delete/{{ doctor[0] }}" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

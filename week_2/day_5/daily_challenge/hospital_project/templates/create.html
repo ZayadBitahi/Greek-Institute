@@ -1,49 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create Patient</title>
-<script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 p-6">
-
-<div class="container mx-auto max-w-lg bg-white p-6 rounded shadow">
-  <h1 class="text-3xl font-bold mb-6">Add Patient</h1>
-
+{% extends "base.html" %}
+{% block title %}Add Patient{% endblock %}
+{% block content %}
+<div class="bg-white shadow-md rounded p-6 max-w-2xl mx-auto">
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Add Patient</h2>
   <form action="/patient/create" method="POST" class="space-y-4">
     <div>
-      <label class="block mb-1">First Name</label>
-      <input type="text" name="first_name" class="w-full border px-3 py-2 rounded" required>
+      <label class="block mb-1 text-gray-700">First Name</label>
+      <input type="text" name="first_name" class="w-full border rounded px-3 py-2" required>
     </div>
     <div>
-      <label class="block mb-1">Last Name</label>
-      <input type="text" name="last_name" class="w-full border px-3 py-2 rounded" required>
+      <label class="block mb-1 text-gray-700">Last Name</label>
+      <input type="text" name="last_name" class="w-full border rounded px-3 py-2" required>
     </div>
     <div>
-      <label class="block mb-1">Date of Birth</label>
-      <input type="date" name="date_of_birth" class="w-full border px-3 py-2 rounded" required>
+      <label class="block mb-1 text-gray-700">Date of Birth</label>
+      <input type="date" name="date_of_birth" class="w-full border rounded px-3 py-2">
     </div>
     <div>
-      <label class="block mb-1">Gender</label>
-      <select name="gender" class="w-full border px-3 py-2 rounded" required>
+      <label class="block mb-1 text-gray-700">Gender</label>
+      <select name="gender" class="w-full border rounded px-3 py-2">
         <option value="">Select</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
       </select>
     </div>
     <div>
-      <label class="block mb-1">Contact Info</label>
-      <input type="text" name="contact_info" class="w-full border px-3 py-2 rounded" required>
+      <label class="block mb-1 text-gray-700">Contact Info</label>
+      <input type="text" name="contact_info" class="w-full border rounded px-3 py-2">
     </div>
-    <div class="flex justify-between">
-      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Create</button>
-      <a href="/" class="bg-gray-400 text-white px-4 py-2 rounded">Cancel</a>
+    <div class="flex justify-end gap-3 pt-2">
+      <a href="/patients" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500 transition">Cancel</a>
+      <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">Create</button>
     </div>
   </form>
 </div>
+{% endblock %}
 
-</body>
-</html>
 

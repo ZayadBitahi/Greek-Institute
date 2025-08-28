@@ -1,46 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Billing</title>
-<script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 p-6">
+{% extends "base.html" %}
+{% block title %}Billing{% endblock %}
+{% block content %}
+<form method="GET" action="/billing" class="bg-white shadow-md rounded p-4 mb-4 grid grid-cols-1 md:grid-cols-6 gap-3">
+  <div class="md:col-span-2">
+    <label class="block text-sm text-gray-600 mb-1">Search Patient</label>
+    <input type="text" name="q" value="{{ q }}" placeholder="Name" class="w-full border rounded px-3 py-2">
+  </div>
+  <div class="md:col-span-2">
+    <label class="block text-sm text-gray-600 mb-1">Start Date</label>
+    <input type="date" name="start" value="{{ start }}" class="w-full border rounded px-3 py-2">
+  </div>
+  <div class="md:col-span-2">
+    <label class="block text-sm text-gray-600 mb-1">End Date</label>
+    <input type="date" name="end" value="{{ end }}" class="w-full border rounded px-3 py-2">
+  </div>
+  <div>
+    <label class="block text-sm text-gray-600 mb-1">Status</label>
+    <select name="status" class="w-full border rounded px-3 py-2">
+      <option value="" {% if not status %}selected{% endif %}>All</option>
+      <option value="paid" {% if status == 'paid' %}selected{% endif %}>Paid</option>
+      <option value="unpaid" {% if status == 'unpaid' %}selected{% endif %}>Unpaid</option>
+    </select>
+  </div>
+  <div class="md:col-span-6 flex justify-end">
+    <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">Filter</button>
+    <a href="/billing/create" class="ml-3 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">Add Bill</a>
+  </div>
+</form>
 
-<div class="container mx-auto">
-  <h1 class="text-3xl font-bold mb-6">Billing</h1>
-
-  <a href="/billing/create" class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">Add Bill</a>
-
-  <table class="min-w-full bg-white shadow-md rounded overflow-hidden">
-    <thead class="bg-gray-200">
-      <tr>
-        <th class="py-2 px-4">ID</th>
-        <th class="py-2 px-4">Patient ID</th>
-        <th class="py-2 px-4">Amount</th>
-        <th class="py-2 px-4">Billing Date</th>
-        <th class="py-2 px-4">Paid Status</th>
-        <th class="py-2 px-4">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for bill in bills %}
-      <tr class="border-b">
-        <td class="py-2 px-4">{{ bill[0] }}</td>
-        <td class="py-2 px-4">{{ bill[1] }}</td>
-        <td class="py-2 px-4">{{ bill[2] }}</td>
-        <td class="py-2 px-4">{{ bill[3] }}</td>
-        <td class="py-2 px-4">{{ 'Paid' if bill[4] else 'Unpaid' }}</td>
-        <td class="py-2 px-4">
-          <a href="/billing/edit/{{ bill[0] }}" class="bg-yellow-400 text-white px-2 py-1 rounded">Edit</a>
-          <a href="/billing/delete/{{ bill[0] }}" class="bg-red-500 text-white px-2 py-1 rounded">Delete</a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+<div class="bg-white shadow-md rounded p-6">
+  <div class="overflow-x-auto">
+    <table class="min-w-full border border-gray-300 rounded overflow-hidden">
+      <thead class="bg-green-100">
+        <tr>
+          <th class="py-2 px-4 border-b text-left">ID</th>
+          <th class="py-2 px-4 border-b text-left">Patient</th>
+          <th class="py-2 px-4 border-b text-left">Amount</th>
+          <th class="py-2 px-4 border-b text-left">Date</th>
+          <th class="py-2 px-4 border-b text-left">Status</th>
+          <th class="py-2 px-4 border-b text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in bills %}
+        <tr class="border-b hover:bg-green-50">
+          <td class="py-2 px-4">{{ b[0] }}</td>
+          <td class="py-2 px-4">{{ b[1] }} {{ b[2] }}</td>
+          <td class="py-2 px-4">{{ b[3] }}</td>
+          <td class="py-2 px-4">{{ b[4] }}</td>
+          <td class="py-2 px-4">
+            {% if b[5] %}<span class="inline-block px-2 py-1 rounded bg-green-100 text-green-700 text-sm">Paid</span>
+            {% else %}<span class="inline-block px-2 py-1 rounded bg-red-100 text-red-700 text-sm">Unpaid</span>{% endif %}
+          </td>
+          <td class="py-2 px-4 text-center">
+            <a href="/billing/edit/{{ b[0] }}" class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500 transition">Edit</a>
+            <a href="/billing/delete/{{ b[0] }}" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
-
-</body>
-</html>
+{% endblock %}

@@ -1,41 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Edit Bill</title>
-<script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 p-6">
-
-<div class="container mx-auto">
-  <h1 class="text-3xl font-bold mb-6">Edit Billing</h1>
-
-  <form action="/billing/edit/{{ bill[0] }}" method="POST" class="bg-white p-6 rounded shadow-md space-y-4">
+{% extends "base.html" %}
+{% block title %}Edit Bill{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css">
+<div class="bg-white shadow-md rounded p-6 max-w-2xl mx-auto">
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Edit Bill</h2>
+  <form action="/billing/edit/{{ bill[0] }}" method="POST" class="space-y-4">
     <div>
-      <label class="block mb-1">Patient ID</label>
-      <input type="number" name="patient_id" class="w-full border px-3 py-2 rounded" value="{{ bill[1] }}" required>
+      <label class="block mb-1 text-gray-700">Patient</label>
+      <select id="patient_id" name="patient_id" class="w-full border rounded px-3 py-2" required>
+        {% for p in patients %}
+        <option value="{{ p[0] }}" {% if p[0] == bill[6] %}selected{% endif %}>{{ p[1] }} {{ p[2] }} (ID {{ p[0] }})</option>
+        {% endfor %}
+      </select>
     </div>
     <div>
-      <label class="block mb-1">Amount</label>
-      <input type="number" step="0.01" name="amount" class="w-full border px-3 py-2 rounded" value="{{ bill[2] }}" required>
+      <label class="block mb-1 text-gray-700">Amount</label>
+      <input type="number" name="amount" step="0.01" value="{{ bill[3] }}" class="w-full border rounded px-3 py-2" required>
     </div>
     <div>
-      <label class="block mb-1">Billing Date</label>
-      <input type="date" name="billing_date" class="w-full border px-3 py-2 rounded" value="{{ bill[3] }}" required>
+      <label class="block mb-1 text-gray-700">Billing Date</label>
+      <input type="date" name="billing_date" value="{{ bill[4] }}" class="w-full border rounded px-3 py-2" required>
     </div>
-    <div>
-      <label class="inline-flex items-center">
-        <input type="checkbox" name="paid_status" class="mr-2" {% if bill[4] %}checked{% endif %}>
-        Paid
-      </label>
+    <div class="flex items-center gap-2">
+      <input type="checkbox" id="paid_status" name="paid_status" class="w-4 h-4" {% if bill[5] %}checked{% endif %}>
+      <label for="paid_status" class="text-gray-700">Paid</label>
     </div>
-    <div>
-      <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded">Update</button>
-      <a href="/billing" class="bg-gray-400 text-white px-4 py-2 rounded">Cancel</a>
+    <div class="flex justify-end gap-3 pt-2">
+      <a href="/billing" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500 transition">Cancel</a>
+      <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">Update</button>
     </div>
   </form>
 </div>
-
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+<script>
+new TomSelect('#patient_id',{create:false,sortField:{field:'text',direction:'asc'},placeholder:'Search patient...'});
+</script>
+{% endblock %}
