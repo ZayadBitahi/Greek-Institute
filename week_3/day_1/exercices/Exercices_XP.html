@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //Exercise 1:
+        let people = ["Greg", "Mary", "Devon", "James"];
+        console.log(people);
+        people.shift();
+        console.log(people);
+        people[2] = "Jason";
+        console.log(people);
+        people.push("aymane");
+        console.log(people);
+        let index = people.indexOf("Mary");
+        console.log(index);
+        console.log(people.slice(1, 3));
+        console.log(people.indexOf("Foo"));
+        // Because "Foo" is not in the array, the pointer returns -1
+        let last = people[people.length - 1];
+        console.log(last);
+        for (let i = 0; i < people.length; i++) {
+            console.log(people[i]);
+        }
+        for (let i = 0; i < people.length; i++) {
+            if (people[i] === "Devon") {
+                break;
+            }
+            console.log(people[i]);
+        }
+
+        //Exercise 2:
+        let colors = ["blue", "red", "green", "yellow", "black"];
+        for (let i = 0; i < colors.length; i++) {
+            console.log(`My #${i + 1} choice is ${colors[i]}`);
+        }
+
+        //Exercise 3:
+        while (true) {
+            let number = Number(prompt("Enter a number:"));
+            if (isNaN(number)) {
+                console.log("That's not a valid number.");
+                continue;
+            }
+            if (number < 10) {
+                break;
+            }
+        }
+
+        //Exercise 4:
+        const building = {
+            numberOfFloors: 4,
+            numberOfAptByFloor: {
+                firstFloor: 3,
+                secondFloor: 4,
+                thirdFloor: 9,
+                fourthFloor: 2,
+            },
+            nameOfTenants: ["Sarah", "Dan", "David"],
+            numberOfRoomsAndRent: {
+                sarah: [3, 990],
+                dan: [4, 1000],
+                david: [1, 500],
+            },
+        }
+        console.log(building.numberOfFloors);
+        console.log(building.numberOfAptByFloor.firstFloor);
+        console.log(building.numberOfAptByFloor.thirdFloor);
+        console.log(building.nameOfTenants[1]);
+        console.log(building.numberOfRoomsAndRent.dan[0]);
+        let price = building.numberOfRoomsAndRent.sarah[1] + building.numberOfRoomsAndRent.david[1];
+        if (price > building.numberOfRoomsAndRent.dan[1]) {
+            building.numberOfRoomsAndRent.dan[1] = 1200;
+            console.log(building.numberOfRoomsAndRent.dan[1]);
+
+        }
+
+        //Exercise 5:
+        const family = {
+            dad: "Hassan",
+            mom: "Khadija",
+            daughter: "Imane",
+            son: "Aymane"
+        } 
+        for (let key in family) {
+            console.log(key);
+        }
+        for (let value in family) {
+            console.log(family[value]);
+        }
+
+        //Exercise 6:
+        const details = {
+            my: 'name',
+            is: 'Rudolf',
+            the: 'reindeer'
+        }
+        let sentence = '';
+        for (let x in details) {
+            sentence += x + ' ' + details[x] + ' ';
+        }
+        console.log(sentence);
+
+        //Exercise 7:
+        let society = [];
+        const names = ["Jack", "Philip", "Sarah", "Amanda", "Bernard", "Kyle"];
+        console.log(names);
+        for (let i in names) {
+            society.push(names[i][0]);
+        }
+        console.log(society);
+        society.sort();
+        console.log(society);
+        let societyName = society.join('');
+        console.log(societyName);
+
+
+    </script>
+</body>
+
+</html>
+
+
+
