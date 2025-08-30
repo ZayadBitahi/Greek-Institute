@@ -84,3 +84,17 @@ def update_item(item_id):
         return "Item not found", 404
     return render_template('update_item.html', item=item)
 
+@app.route('/stats')
+def stats():
+    patient_count = 120
+    doctor_count = 25
+    appointment_count = 340
+
+    return render_template(
+        'stats.html',
+        patient_count=patient_count,
+        doctor_count=doctor_count,
+        appointment_count=appointment_count
+    )
+
+
