@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>My Book List</h1>
+    <section class="listBooks"></section>
+
+    <script>
+        const allBooks = [
+            {
+                title: "The Hobbit",
+                author: "J.R.R. Tolkien",
+                image: "https://m.media-amazon.com/images/I/71aFt4+OTOL._AC_UF1000,1000_QL80_.jpg",
+                alreadyRead: true
+            },
+            {
+                title: "Clean Code",
+                author: "Robert C. Martin",
+                image: "https://m.media-amazon.com/images/I/41xShlnTZTL._SX374_BO1,204,203,200_.jpg",
+                alreadyRead: false
+            }
+        ];
+
+        const section = document.querySelector(".listBooks");
+
+        allBooks.forEach(book => {
+            const bookDiv = document.createElement("div");
+            bookDiv.style.marginBottom = "20px";
+
+            const details = document.createElement("p");
+            details.textContent = `${book.title} written by ${book.author}`;
+
+            if (book.alreadyRead) {
+                details.style.color = "red";
+            }
+
+            const img = document.createElement("img");
+            img.src = book.image;
+            img.style.width = "100px";
+
+            bookDiv.appendChild(details);
+            bookDiv.appendChild(img);
+
+            section.appendChild(bookDiv);
+        });
+
+    </script>
+</body>
+
+</html>

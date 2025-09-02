@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container">Users:</div>
+    <ul class="list">
+        <li>John</li>
+        <li>Pete</li>
+    </ul>
+    <ul class="list">
+        <li>David</li>
+        <li>Sarah</li>
+        <li>Dan</li>
+    </ul>
+    <script>
+        //Exercise 5:
+        const container = document.getElementById("container");
+        console.log(container);
+
+        const firstUl = document.querySelectorAll(".list")[0];
+        firstUl.children[1].textContent = "Richard";
+
+        const secondUl = document.querySelectorAll(".list")[1];
+        secondUl.children[1].remove();
+
+        document.querySelectorAll(".list").forEach(ul => {
+            ul.children[0].textContent = "aymane";
+        });
+
+        document.querySelectorAll(".list").forEach(ul => {
+            ul.classList.add("student_list");
+        });
+
+        firstUl.classList.add("university", "attendance");
+
+        container.style.backgroundColor = "lightblue";
+        container.style.padding = "10px";
+
+        [...document.querySelectorAll("li")].forEach(li => {
+            if (li.textContent === "Dan") {
+                li.style.display = "none";
+            }
+        });
+
+        [...document.querySelectorAll("li")].forEach(li => {
+            if (li.textContent === "Richard") {
+                li.style.border = "2px solid black";
+            }
+        });
+
+        document.body.style.fontSize = "20px";
+
+        if (container.style.backgroundColor === "lightblue") {
+            const users = [...document.querySelectorAll(".list li")].map(li => li.textContent);
+            alert(`Hello ${users.join(" and ")}`);
+        }
+
+    </script>
+</body>
+
+</html>
+
+</html>
