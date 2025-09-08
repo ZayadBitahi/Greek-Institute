@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <article>
+        <h1> Some Facts </h1>
+        <h2> The Chocolate </h2>
+        <h3> History of the chocolate </h3>
+        <p> Chocolate is made from tropical Theobroma cacao tree seeds.
+            Its earliest use dates back to the Olmec civilization in Mesoamerica.</p>
+        <p> After the European discovery of the Americas, chocolate became
+            very popular in the wider world, and its demand exploded. </p>
+        <p> Chocolate has since become a popular food product that millions enjoy every day,
+            thanks to its unique, rich, and sweet taste.</p>
+        <p> But what effect does eating chocolate have on our health?</p>
+    </article>
+
+    <script>
+        console.log(document.querySelector("h1"));
+        let removeArticle = document.querySelector("article");
+        let lastArticle = document.querySelector("p:last-child");
+        removeArticle.removeChild(lastArticle);
+        let h2Article = document.querySelector("h2");
+        h2Article.addEventListener("click", function () {
+            h2Article.style.backgroundColor = "red";
+        });
+
+        let h3Article = document.querySelector("h3");
+        h3Article.addEventListener("click", function () {
+            h3Article.style.display = "none";
+        });
+
+        let button = document.createElement("button");
+        button.textContent = "Click";
+        button.addEventListener("click", function () {
+            let paragraphs = document.querySelectorAll("p");
+            paragraphs.forEach(p => {
+                p.style.fontWeight = "bold";
+            });
+        });
+        document.body.appendChild(button);
+
+        let h1 = document.querySelector("h1");
+        h1.addEventListener("mouseover", function () {
+            let randomSize = Math.floor(Math.random() * 100) + "px";
+            h1.style.fontSize = randomSize;
+        });
+
+        let secondP = document.querySelectorAll("p")[1];
+        secondP.addEventListener("mouseover", function () {
+            secondP.style.transition = "opacity 1s";
+            secondP.style.opacity = "0";
+        });
+    </script>
+</body>
+
+</html>
